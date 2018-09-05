@@ -353,9 +353,6 @@ definitions:
   Recipe:
     type: object
     properties:
-      recipe_id:
-        type: number
-        format: int
       name:
         type: string
       photo:
@@ -377,12 +374,11 @@ definitions:
       date:
         type: string
         format: date
-      lunch_recipe_id:
-        type: number
-        format: int
-      dinner_recipe_id: 
-        type: number
-        format: int
+      lunch_recipe:
+        $ref: '#/definitions/Recipe'
+      dinner_recipe: 
+        $ref: '#/definitions/Recipe'
+
 
   Location:
     type: object
