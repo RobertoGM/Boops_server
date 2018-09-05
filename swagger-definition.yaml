@@ -48,7 +48,7 @@ paths:
       produces:
         - application/json
       parameters:
-        - name: id
+        - name: location_id
           in: path
           description: id of the location to search for
           required: true
@@ -68,12 +68,201 @@ paths:
         '500':
           description: Internal Server Error.
 
+  /api/v1/location:
+    post:
+      tags:
+        - Locations
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: location
+          in: body
+          description: location to add or update
+          required: true
+          schema:
+            $ref: '#/definitions/Location'
+      responses:
+        '200':
+          description: Ok. Returns the location added or updated
+          schema:
+              $ref: '#/definitions/Location'
+        '400':
+          description: Bad data
+        '404':
+          description: Service not found
+        '422':
+          description: Invalid username/password supplied
+        '500':
+          description: Internal Server Error.
+
+  /api/v1/calendar:
+    post:
+      tags:
+        - Calendar
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: calendar
+          in: body
+          description: calendar to add or update
+          required: true
+          schema:
+            $ref: '#/definitions/Calendar'
+      responses:
+        '200':
+          description: Ok. Returns the calendar added or updated
+          schema:
+              $ref: '#/definitions/Calendar'
+        '400':
+          description: Bad data
+        '404':
+          description: Service not found
+        '422':
+          description: Invalid username/password supplied
+        '500':
+          description: Internal Server Error.
+
+  /api/v1/search_calendar:
+    post:
+      tags:
+        - Calendar
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: calendar
+          in: body
+          description: calendar information to search for
+          required: true
+          schema:
+            $ref: '#/definitions/Calendar'
+      responses:
+        '200':
+          description: Ok. Returns the list of calendars for a given criteria.
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Calendar'
+        '400':
+          description: Bad data
+        '404':
+          description: Service not found
+        '422':
+          description: Invalid username/password supplied
+        '500':
+          description: Internal Server Error.
+
+  /api/v1/calendar_theme:
+    post:
+      tags:
+        - Calendar
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: theme_calendar
+          in: body
+          description: information to create calendars following certain tags
+          required: true
+          schema:
+            $ref: '#/definitions/ThemeCalendar'
+      responses:
+        '200':
+          description: Ok. Returns the list of calendars for a given criteria.
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Calendar'
+        '400':
+          description: Bad data
+        '404':
+          description: Service not found
+        '422':
+          description: Invalid username/password supplied
+        '500':
+          description: Internal Server Error.
+
+  /api/v1/recipe:
+    post:
+      tags:
+        - Recipes
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: recipe
+          in: body
+          description: recipe to add or update
+          required: true
+          schema:
+            $ref: '#/definitions/Recipe'
+      responses:
+        '200':
+          description: Ok. Returns the recipe added or updated
+          schema:
+              $ref: '#/definitions/Recipe'
+        '400':
+          description: Bad data
+        '404':
+          description: Service not found
+        '422':
+          description: Invalid username/password supplied
+        '500':
+          description: Internal Server Error.
+
+  /api/v1/search_recipe:
+    post:
+      tags:
+        - Recipes
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: recipe
+          in: body
+          description: recipe information to search for
+          required: true
+          schema:
+            $ref: '#/definitions/Recipe'
+      responses:
+        '200':
+          description: Ok. Returns the list of recipes for a given criteria.
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Recipe'
+        '400':
+          description: Bad data
+        '404':
+          description: Service not found
+        '422':
+          description: Invalid username/password supplied
+        '500':
+          description: Internal Server Error.
+
   /api/v1/tags:
-    get:
+    post:
       tags:
         - Recipes
       produces:
         - application/json
+      consumes:
+        - application/json     
+      parameters:
+        - name: recipe
+          in: body
+          description: recipe information to search for
+          required: true
+          schema:
+            $ref: '#/definitions/Recipe'
       responses:
         '200':
           description: Ok. Return list of all tags used in recipes in that location.
@@ -87,6 +276,66 @@ paths:
           description: Unauthorized
         '404':
           description: Service not found
+        '500':
+          description: Internal Server Error.
+
+  /api/v1/search_ingredient:
+    post:
+      tags:
+        - Ingredients
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: ingredient
+          in: body
+          description: ingredient information to search for
+          required: true
+          schema:
+            $ref: '#/definitions/Ingredient'
+      responses:
+        '200':
+          description: Ok. Returns the list of ingredients for a given criteria.
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Ingredient'
+        '400':
+          description: Bad data
+        '404':
+          description: Service not found
+        '422':
+          description: Invalid username/password supplied
+        '500':
+          description: Internal Server Error.
+
+  /api/v1/ingredient:
+    post:
+      tags:
+        - Ingredients
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: ingredient
+          in: body
+          description: ingredient to add or update
+          required: true
+          schema:
+            $ref: '#/definitions/Ingredient'
+      responses:
+        '200':
+          description: Ok. Returns the ingredient added or updated
+          schema:
+              $ref: '#/definitions/Ingredient'
+        '400':
+          description: Bad data
+        '404':
+          description: Service not found
+        '422':
+          description: Invalid username/password supplied
         '500':
           description: Internal Server Error.
 
@@ -159,3 +408,17 @@ definitions:
         items:
           type: number
           format: int
+
+  ThemeCalendar:
+    type: object
+    properties:
+      tags:
+        type: array
+        items:
+          type: string
+      date_init:
+        type: string
+        format: date
+      date_end:
+        type: string
+        format: date
