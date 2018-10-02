@@ -10,7 +10,11 @@ export class IngredientService {
     private readonly ingredientRepository: Repository<Ingredient>,
   ) { }
 
-  async findAll(): Promise<Ingredient[]> {
-    return await this.ingredientRepository.find();
+  async find(ingredient: Ingredient): Promise<Ingredient[]> {
+    return await this.ingredientRepository.find(ingredient);
+  }
+
+  async createOne(ingredient: Ingredient): Promise<Ingredient> {
+    return await this.ingredientRepository.create(ingredient);
   }
 }

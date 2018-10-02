@@ -2,8 +2,8 @@ import { Entity, Column, PrimaryColumn } from 'typeorm';
 
 @Entity()
 export class Ingredient {
-  @PrimaryColumn() name: string;
+  @PrimaryColumn() id: string;
 
-  @Column() price: number;
+  @Column() name: string;
 
 }

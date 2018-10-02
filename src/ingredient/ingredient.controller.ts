@@ -1,4 +1,4 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Post, Body } from '@nestjs/common';
 import { Ingredient } from './ingredient.entity';
 import { IngredientService } from './ingredient.service';
 
@@ -6,8 +6,13 @@ import { IngredientService } from './ingredient.service';
 export class IngredientController {
   constructor(private readonly ingredientService: IngredientService) { }
 
-  @Get()
-  findAll(): Promise<Ingredient[]> {
-    return this.ingredientService.findAll();
+  @Post('search_ingredient')
+  findAll(@Body() ingredient?: Ingredient): Promise<Ingredient[]> {
+    return this.ingredientService.find(ingredient);
+  }
+
+  @Post()
+  createIngredient(@Body() ingredient: Ingredient): Promise<Ingredient> {
+    return this.ingredientService.createOne(ingredient);
   }
 }
