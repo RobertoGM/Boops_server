@@ -1,9 +1,11 @@
-import { Entity, Column, PrimaryColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class Ingredient {
-  @PrimaryColumn() id: string;
+  @PrimaryGeneratedColumn() id: string;
 
   @Column() name: string;
+
+  @Column() priceHistory: {price: number, date: Date}[];
 
 }
