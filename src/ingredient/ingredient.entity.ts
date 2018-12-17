@@ -1,11 +1,16 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, ObjectIdColumn, ObjectID, Index } from 'typeorm';
 
 @Entity()
 export class Ingredient {
-  @PrimaryGeneratedColumn() id: string;
 
-  @Column() name: string;
+  @ObjectIdColumn()
+  id?: ObjectID;
 
-  @Column() priceHistory: {price: number, date: Date}[];
+  @Column()
+  @Index({ unique: true })
+  name: string;
+
+  @Column()
+  priceHistory: {price: number, date: Date}[];
 
 }
